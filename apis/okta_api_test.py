@@ -2,7 +2,7 @@
 # import requests
 
 
-# api_token = 'your api token here'
+# api_token = '00l-98rUxuBYotnn-DfJF9kuI79PWMxonN7ItRnPOX'
 # api_url_base = 'https://semonav2.oktapreview.com/api/v1/users'
 
 
@@ -22,7 +22,6 @@
 #         return None
 
 # account_info = get_account_info()
-#     return account_info
 
 # print(account_info)
 # if account_info is not None:
@@ -32,6 +31,23 @@
 
 # else:
 #     print('[!] Request Failed')
-##############################################################################
 
+
+
+from okta import UsersClient
+# http://developer.okta.com/docs/api/getting_started/getting_a_token.html
+usersClient = UsersClient('https://example.oktapreview.com/',
+                          '01a2B3Cd4E5fGHiJ6K7l89mNOPQRsT0uVwXYZA1BCd')
+
+
+from okta import UsersClient
+# http://developer.okta.com/docs/api/getting_started/getting_a_token.html
+usersClient = UsersClient('https://example.oktapreview.com/',
+                          '01a2B3Cd4E5fGHiJ6K7l89mNOPQRsT0uVwXYZA1BCd')
+
+new_user = User(login='example@example.com',
+                email='example@example.com',
+                firstName='Saml',
+                lastName='Jackson')
+user = usersClient.create_user(new_user, activate=False)
 
