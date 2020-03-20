@@ -1,52 +1,33 @@
-"""Helper functions used to create users"""
+"""Helper functions used to get and create users"""
 
+import json
+import requests
 
-# Create a client
-from okta import UsersClient
-# http://developer.okta.com/docs/api/getting_started/getting_a_token.html
-usersClient = UsersClient('https://example.oktapreview.com/',
-                          '01a2B3Cd4E5fGHiJ6K7l89mNOPQRsT0uVwXYZA1BCd')
+api_token = 'your api token here'
+api_url_base = 'https://example.oktapreview.com/'
 
-# Create a user
-from okta import UsersClient
-# http://developer.okta.com/docs/api/getting_started/getting_a_token.html
-usersClient = UsersClient('https://example.oktapreview.com/',
-                          '01a2B3Cd4E5fGHiJ6K7l89mNOPQRsT0uVwXYZA1BCd')
+headers = {'Content-Type': 'application/json',
+           'Authorization': 'SSWS {0}'.format(api_token)}
 
-new_user = User(login='saml.jackson@oktapreview.com',
-                email='saml.jackson@oktapreview.com',
-                firstName='Saml',
-                lastName='Jackson')
-user = usersClient.create_user(new_user, activate=False)
+# Get User Info
+def get_account_info():
 
-# Activate a user
-from okta import UsersClient
-from okta.models.user import User
-# http://developer.okta.com/docs/api/getting_started/getting_a_token.html
-usersClient = UsersClient('https://example.oktapreview.com/',
-                          '01a2B3Cd4E5fGHiJ6K7l89mNOPQRsT0uVwXYZA1BCd')
+    api_url = '{0}'.format(api_url_base)
 
-user = usersClient.get_user('example@example.com')
-usersClient.activate_user(user.id)
+    response = requests.get(api_url, headers=headers)
 
-# Loop through a list
-from okta import UsersClient
-# http://developer.okta.com/docs/api/getting_started/getting_a_token.html
-usersClient = UsersClient('https://example.oktapreview.com/',
-                          '01a2B3Cd4E5fGHiJ6K7l89mNOPQRsT0uVwXYZA1BCd')
+    # using f-strings here; much faster (yay!) and easier to read than formatting strings!
+    # print(f"Got response: {response}")
+    # print(f"Got response.content: {response.content}")
 
-users = usersClient.get_paged_users()
-while True:
-    for user in users.result:
-        print u"First Name: {}".format(user.profile.firstName)
-        print u"Last Name:  {}".format(user.profile.lastName)
-        print u"Login:      {}".format(user.profile.login)
-        print u"User ID:    {}\n".format(user.id)
-    if not users.is_last_page():
-        # Keep on fetching pages of users until the last page
-        users = usersClient.get_paged_users(url=users.next_url)
+    if response.status_code == 200:
+        return json.loads(response.content.decode('utf-8'))
     else:
-        break
+        # Can explicitly return None here to mean "an error happened"
+        return {}
+
+account_info = get_account_info()
+
 
 
 
