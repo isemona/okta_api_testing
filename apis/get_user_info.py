@@ -1,10 +1,10 @@
-"""Helper functions used to get and create users"""
+"""Script to retrieve a user from the Okta User API"""
 
 import json
 import requests
 
 api_token = 'your api token here'
-api_url_base = 'https://example.oktapreview.com/'
+api_url_base = 'https://example.oktapreview.com/api/v1/users'
 
 headers = {'Content-Type': 'application/json',
            'Authorization': 'SSWS {0}'.format(api_token)}
