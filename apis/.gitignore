@@ -3,5 +3,6 @@ env
 __pycache__
 secrets.sh
 .DS_Store
+../.DS_Store
 .idea/
 site-packages
