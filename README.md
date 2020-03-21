@@ -1,8 +1,9 @@
-## okta_api_testing
-Testing various Okta apis
+## Testing Okta's various APIs
+[Okta API Docs](https://developer.okta.com/docs/reference/)
 
 ## APIs Used
-+ [Okta API Docs](https://developer.okta.com/docs/reference/)
++ User
++ Groups
 
 ## Requirements
 1. virtualenv -p python3 env
